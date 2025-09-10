@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>深圳领证跟拍 | 周末 & 国庆档期可约</title>
+    <style>
+        /* --- 全局样式 --- */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            background: #f7f7f7;
+            color: #333;
+        }
+
+        .container {
+            width: 85%;
+            max-width: 1100px;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+        /* --- 头部 --- */
+        header {
+            background: #fff;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.2em;
+            color: #d9534f;
+            font-weight: 600;
+        }
+        header p {
+            margin-top: 5px;
+            color: #777;
+            font-size: 0.9em;
+        }
+
+        /* --- 首图展示区 (最终优化：毛玻璃背景 + 图片居中缩小) --- */
+        .showcase {
+            position: relative;
+            padding: 4vw 0; /* 上下留白，用vw单位使其自适应 */
+            background-color: #1a1a1a;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .showcase-blur-bg {
+            position: absolute;
+            top: -20px; left: -20px; right: -20px; bottom: -20px; /* 放大以隐藏模糊边缘 */
+            background-image: url('https://photo-12257182728.cos.ap-guangzhou.myqcloud.com/1c470dceabdd0c42dbda1b3bd003e523.JPG');
+            background-size: cover;
+            background-position: center;
+            filter: blur(25px); /* 高斯模糊 */
+            opacity: 0.6; /* 背景不用太亮 */
+            z-index: 1;
+        }
+        .showcase-content {
+            position: relative;
+            width: 90%;
+            max-width: 1200px; /* 限制主图的最大宽度 */
+            z-index: 2;
+            border-radius: 12px; /* 给图片容器加圆角 */
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4); /* 增加立体阴影 */
+            overflow: hidden; /* 确保内部图片也被裁切圆角 */
+        }
+        .showcase-img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .showcase-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+        }
+        .showcase-text h2 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        .showcase-text p {
+            font-size: 1.1em;
+            font-weight: 300;
+        }
+        /* --- 优化结束 --- */
+
+        /* --- 内容区块 --- */
+        .section {
+            padding: 50px 0;
+            background: #fff;
+            margin-top: -20px; /* 让第一个section稍微向上覆盖一点，更有设计感 */
+            border-radius: 8px;
+        }
+        #about {
+            padding-top: 70px;
+            border-radius: 12px 12px 8px 8px;
+        }
+        .section:last-of-type {
+            margin-bottom: 0;
+        }
+        .section h2 {
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 40px;
+            font-size: 2em;
+            color: #333;
+        }
+        .about-me p, .service-details {
+            max-width: 750px;
+            margin: 0 auto 20px auto;
+            text-align: center;
+            padding: 0 15px;
+        }
+        .service-details h3 {
+            font-size: 1.2em;
+            color: #555;
+            margin-top: 30px;
+        }
+
+        /* --- 价格套餐 --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .service-card {
+            background: #fdfdfd;
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+        }
+        .service-card h3 { margin-top: 0; color: #d9534f; }
+        .service-card ul { list-style: none; padding: 0; text-align: left; display: inline-block; }
+        .service-card li { padding: 8px 0; }
+
+        /* --- 作品集 --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .gallery-grid img { width: 100%; height: auto; border-radius: 8px; display: block; }
+
+        /* --- 联系方式 --- */
+        .contact { text-align: center; }
+        .contact p { font-size: 1.1em; margin-bottom: 15px; }
+        .wechat {
+            font-weight: bold; color: #fff; background: #d9534f;
+            padding: 12px 25px; border-radius: 5px; display: inline-block;
+            margin-top: 10px; text-decoration: none;
+        }
+
+        /* --- 页脚 --- */
+        footer {
+            background: #333; color: #ccc; text-align: center;
+            padding: 30px 0; margin-top: 20px; font-size: 0.9em;
+        }
+        footer p { margin: 5px 0; }
+
+        /* --- 移动端适配 --- */
+        @media (max-width: 768px) {
+            .container { width: 90%; }
+            header h1 { font-size: 1.8em; }
+            .showcase-text h2 { font-size: 1.8em; }
+            .showcase-text p { font-size: 0.9em; }
+            .section h2 { font-size: 1.6em; }
+            .contact p { font-size: 1em; }
+            #about { padding-top: 60px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>深圳领证跟拍</h1>
+            <p>定格你们的幸福瞬间 | 周末 & 国庆档期火热预约中</p>
+        </div>
+    </header>
+
+    <section class="showcase">
+        <div class="showcase-blur-bg"></div>
+        <div class="showcase-content">
+            <img class="showcase-img" src="https://photo-1257182728.cos.ap-guangzhou.myqcloud.com/1c470dceabdd0c42dbda1b3bd003e523.JPG" alt="深圳领证跟拍主图">
+            <div class="showcase-text">
+                <h2>让爱意在镜头下永恒</h2>
+                <p>用最自然、最甜蜜的方式，记录你们最重要的这一天。</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <section id="about" class="section about-me">
+            <h2>关于我</h2>
+            <p>99后女摄影师，拥有独特审美和敏锐视角。我擅长引导情侣间的自然互动，捕捉每一个眼神、微笑和小动作，让照片充满故事感。我希望用我的镜头，为你们定格领证当天的幸福瞬间，让你们在未来的日子里，每当回看这些照片，依然能感受到当下的喜悦与温暖。</p>
+        </section>
+
+        <section id="services" class="section">
+            <h2>价格套餐</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>套餐一</h3>
+                    <p><strong>399元 / 2小时</strong></p>
+                    <ul>
+                        <li>✔️ 底片 100+</li>
+                        <li>✔️ 精修 9 张</li>
+                        <li>✔️ 订金 80 元</li>
+                        <li>✔️ 免费拍立得 1 张 (额外15元/张)</li>
+                        <li>✔️ 大疆 Vlog 花絮素材</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <h3>套餐二</h3>
+                    <p><strong>499元 / 3小时</strong></p>
+                    <ul>
+                        <li>✔️ 底片 150+</li>
+                        <li>✔️ 精修 12 张</li>
+                        <li>✔️ 赠送拍立得 2 张</li>
+                        <li>✔️ 订金 100 元</li>
+                        <li>✔️ 大疆 Vlog 花絮素材</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="service-details">
+                <h3>服务说明</h3>
+                <p>不提供妆造服务，但可提供专业妆容与服装建议。<br>自带简单道具可提升画面丰富度与仪式感。</p>
+                <h3>免费道具</h3>
+                <p>喜字贴纸 | 白色头纱 | 红色气球 | 拍立得</p>
+                <h3>器材配置</h3>
+                <p>尼康 Z5 全画幅 | 理光胶片机 | 索尼复古CCD<br>富士拍立得 | 大疆Action 4 | 专业灯光设备</p>
+            </div>
+        </section>
+
+        <section id="gallery" class="section">
+            <h2>我的作品</h2>
+            <div class="gallery-grid">
+                <img src="https://photo-1257182728.cos.ap-guangzhou.myqcloud.com/7d7ea627b5681ab56bdfa73acd9d9979.JPG" alt="领证跟拍作品1">
+                <img src="https://photo-1257182728.cos.ap-guangzhou.myqcloud.com/IMG_1072.JPG" alt="领证跟拍作品2">
+                <img src="https://photo-1257182728.cos.ap-guangzhou.myqcloud.com/ae976297adbf3996707200a2ba36ebab.JPG" alt="领证跟拍作品3">
+                <img src="https://photo-1257182728.cos.ap-guangzhou.myqcloud.com/d67002dd4956b5e110c1f05df92f4999.JPG" alt="领证跟拍作品4">
+            </div>
+        </section>
+
+        <section id="contact" class="section contact">
+            <h2>预约档期</h2>
+            <p>周末及国庆期间（仅10月1日民政局开放）档期有限，先到先得。<br>立即添加我的微信，预约你的专属幸福记录师！</p>
+            <div class="wechat">微信号：chuxin0916</div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>更多作品请关注</p>
+            <p>小红书：w1506918823 | 抖音：1506918823</p>
+            <p>&copy; 2025 深圳领证跟拍. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
